@@ -1,0 +1,44 @@
+.txt{
+  font-family: 'Roboto';
+}
+.txt[data-view='title']{
+  font-size: 44px;
+  line-height: 48px;
+  font-weight: bold;
+  letter-spacing: 0%;
+}
+.txt[data-view='button']{
+  font-size: 18px;
+  line-height: 18px;
+  letter-spacing: 0%;
+}
+.txt[data-view='p-20']{
+  font-size: 20px;
+  line-height: 24px;
+  letter-spacing: 0%;
+}
+.txt[data-view='p-18']{
+  font-size: 18px;
+  line-height: 22px;
+  letter-spacing: 0%;
+}
+.txt[data-view='p-16']{
+  font-size: 16px;
+  line-height: 20px;
+  letter-spacing: 0%;
+}
+.txt[data-view='p-14']{
+  font-size: 14px;
+  line-height: 18px;
+  letter-spacing: 0%;
+}
+
+.txt[data-color='primary']{
+  color: black;
+}
+.txt[data-color='secondary']{
+  color: #AFADB5;
+}
+.txt[data-color='accent']{
+  color: var(--brand);
+}

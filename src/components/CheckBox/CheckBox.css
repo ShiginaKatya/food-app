@@ -1,0 +1,49 @@
+.check{
+  display: grid;
+  grid-auto-flow: column;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  background-color: white;
+  margin: 0;
+  padding: 0;
+  border-radius: var(--border-radius);
+  border: 1px solid white;
+  box-sizing: border-box;
+}
+
+.check_input{
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+  white-space: nowrap;
+  clip-path: inset(100%);
+  clip: rect(0 0 0 0);
+  overflow: hidden;
+}
+
+.check:not(:disabled):hover{
+  border: 1px solid var(--brand);
+}
+.check-disabled .checked-icon path{
+  stroke: #00000033
+}
+.check-disabled, .check:disabled{
+  background-color: #FFFFFF80;
+  cursor: not-allowed;
+  border: 1px solid #FFFFFF00;
+  pointer-events: none;
+}
+.checked-icon{
+  width: calc(100% + 2px); 
+  height: calc(100% + 2px);
+  margin: -1px; 
+  
+  display: block;
+}
+
+
