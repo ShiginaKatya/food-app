@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
-import './Button.css'
 import Loader from '../Loader';
+import s from './Button.module.scss'
 
 export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   /** Состояние загрузки */
@@ -19,7 +19,7 @@ const Button: React.FC<ButtonProps> = ({
   ...props
 }) => {
   
-  const fullClassName = classNames('btn', {'btn-disabled': disabled}, className)
+  const fullClassName = classNames(s.btn, {[s.btn_disabled]: disabled}, className)
   return(
     <button data-testid="button" className={fullClassName} {...props} disabled={disabled || loading} onClick={onClick}>
       {loading && <Loader size='s' className='btn-loader'/>}

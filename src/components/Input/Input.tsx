@@ -1,5 +1,5 @@
 import React from 'react';
-import './Input.css';
+import s from './Input.module.scss';
 import classNames from 'classnames';
 
 export type InputProps = Omit<
@@ -24,15 +24,17 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     placeholder,
     ...props
   }, ref) => {
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-      onChange?.(e.target.value);
-    };
-    const inputClassName = classNames('input', {'input-disabled': disabled}, className)
+    
+    const handleChange = React.useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+      onChange(e.target.value);
+    }, [onChange])
+    
+    const inputClassName = classNames(s.input, {[s.input_disabled]: disabled}, className)
     return(
       
       <div className={inputClassName}>
-        <input ref={ref} type="text" value={value} onChange={handleChange} disabled={disabled} placeholder={placeholder} {...props}/>
-        {afterSlot && <div className='logo'>{afterSlot}</div>}
+        <input {...props} ref={ref} type="text" value={value ?? ''} onChange={handleChange} disabled={disabled} placeholder={placeholder} />
+        {afterSlot}
       </div>
     )
   }

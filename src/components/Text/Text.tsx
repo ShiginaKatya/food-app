@@ -1,5 +1,6 @@
 import * as React from 'react';
-import "./Text.css";
+import s from "./Text.module.scss";
+import classNames from 'classnames';
 
 export type TextProps = {
     /** Дополнительный класс */
@@ -27,13 +28,7 @@ const Text: React.FC<TextProps> = ({
     color='inherit',
     maxLines
 }) =>{
-    const fontWeights ={
-        'normal': 400,
-        'medium': 500,
-        'bold': 700
-    }
     const textStyle: React.CSSProperties = {
-        fontWeight: fontWeights[weight] || 400,
         ...(maxLines && {
         display: '-webkit-box',
         WebkitBoxOrient: 'vertical',
@@ -42,7 +37,7 @@ const Text: React.FC<TextProps> = ({
         }),
     }
     return(
-    <Tag className={`txt ${className}`} data-view={view} data-color={color} style={textStyle} >
+    <Tag className={classNames(s.txt, view && s[`txt__view-${view}`], s[`txt__color-${color}`], s[`txt__weight-${weight}`], className)} style={textStyle} >
         {children}
     </Tag>
     );

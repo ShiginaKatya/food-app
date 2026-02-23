@@ -1,6 +1,7 @@
 import React from 'react';
 import Text from '../Text'
-import './Card.css'
+import s from './Card.module.scss'
+import classNames from 'classnames';
 
 export type CardProps = {
     /** Дополнительный classname */
@@ -32,21 +33,19 @@ const Card: React.FC<CardProps> = ({
     actionSlot
 }) => {
     return(
-        <div className={`card ${className}`} onClick={onClick}>
-            <img className='card_image' src={image} alt="image" />
-            <ul className='card_content'>
-                <li className='card_texts'>
+        <div className={classNames(s.card, className)} onClick={onClick}>
+            <img className={s.card__image} src={image} alt="image" />
+            <ul className={s.card__content}>
+                <li className={s.card__texts}>
                     {captionSlot && <Text view='p-14' tag='p' color='secondary' weight='medium'>{captionSlot}</Text>}
                     <Text view='p-20' tag='p' color='primary' weight='medium' maxLines={2}>{title}</Text>
-                    <Text view='p-16' tag='p' color='secondary' weight='medium' maxLines={3}>{subtitle}</Text>
+                    <Text view='p-16' tag='p' color='secondary' weight='normal' maxLines={3}>{subtitle}</Text>
                 </li>
-                <li className='card_footer'>
-                    {contentSlot && <Text view='p-18' tag='p' color='primary' weight='bold' >{contentSlot}</Text>}
+                <li className={s.card__footer}>
+                    {contentSlot && <Text view='p-18' tag='p' color='accent' weight='bold' >{contentSlot}</Text>}
                     {actionSlot}
                 </li>
             </ul>
-            
-
         </div>
     )
 };

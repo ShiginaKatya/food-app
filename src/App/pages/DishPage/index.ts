@@ -1,1 +1,1 @@
-// export { default } from './DishPage';
+export { default } from './DishPage';

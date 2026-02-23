@@ -1,9 +1,0 @@
-svg[data-color='primary'] path{
-  fill: black;
-}
-svg[data-color='secondary'] path{
-  fill: #AFADB5;
-}
-svg[data-color='accent'] path{
-  fill: var(--brand);
-}

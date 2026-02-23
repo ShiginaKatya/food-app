@@ -1,7 +1,7 @@
-import React, {useState, useRef, useMemo, useEffect} from 'react';
+import React, {useState, useRef, useMemo, useEffect, useCallback} from 'react';
 import classNames from 'classnames';
 import Input from '../Input';
-import './MultiDropdown.css'
+import s from './MultiDropdown.module.scss'
 import ArrowDownIcon from '../icons/ArrowDownIcon';
 
 export type Option = {
@@ -34,66 +34,91 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({
   disabled,
   getTitle,
 }) => {
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  const ref = useRef<HTMLInputElement>(null);
   const [isOpen, setIsOpen] = useState(false);
   const [filter, setFilter] = useState('');
-  const containerRef = useRef<HTMLDivElement>(null);
+
+  const open = () => {
+    setIsOpen(true)
+  }
 
   useEffect(() => {
-    if (disabled) setIsOpen(false);
-  }, [disabled]);
-  const filterations = useMemo(() => {
-    return options.filter((opt) =>
-      opt.value.toLowerCase().includes(filter.toLowerCase())
-    );
-  }, [options, filter]);
-  const inputToggle = (option: Option) => {
-    const isSelected = value.some((v) => v.key === option.key);
-    if (isSelected) {
-      onChange(value.filter((v) => v.key !== option.key));
-    } else {
-      onChange([...value, option]);
+    const handlerClick = (e: MouseEvent) => {
+      if (!wrapperRef.current?.contains(e.target as HTMLElement)){
+        setIsOpen(false)
+      }
     }
-  };
-  const handleBlur = (e: React.FocusEvent) => {
-    if (!containerRef.current?.contains(e.relatedTarget)) {
-      setIsOpen(false);
-      setFilter('');
+
+    window.addEventListener('click', handlerClick );
+    return () => {
+      window.removeEventListener('click', handlerClick);
     }
-  };
-  const currentTitle = getTitle(value);
-  const displayValue = isOpen ? filter : (value.length > 0 ? getTitle(value) : '');
-  const inputPlaceholder = (isOpen || value.length === 0) ? currentTitle : '';
-  const selectName = classNames('select', className)
+  }, [])
+
+  useEffect(() => {
+    if (isOpen) {
+      setFilter('')
+    }
+  }, [isOpen])
+
+  const title = useMemo(() => getTitle(value), [getTitle, value])
+  const selectName = classNames(s.select, className)
+  const isEmpty = value.length === 0;
+
+  const filteredOptions = useMemo(() => {
+    const str = filter.toLocaleLowerCase();
+
+    return options.filter((o) => o.value.toLocaleLowerCase().indexOf(str) === 0)
+  }, [filter, options])
+
+  const selectedKeysSet = useMemo<Set<Option['key']>>(
+    () => new Set(value.map(({key}) => key)), 
+    [value]
+  )
+
+  const onSelect = useCallback(
+    (option: Option)  =>{
+      if (disabled) {
+        return
+      }
+
+      if (selectedKeysSet.has(option.key)){
+        onChange([...value].filter(({key}) => key !== option.key))
+      } else {
+        onChange([...value, option]);
+      }
+
+      ref.current?.focus()
+    },
+    [disabled, onChange, value, selectedKeysSet]
+  )
+  const opened = isOpen && !disabled;
   return (
     <div 
       className={selectName} 
-      ref={containerRef} 
-      onBlur={handleBlur}
+      ref={wrapperRef} 
     >
       <Input
         disabled={disabled}
-        value={displayValue}
-        placeholder={inputPlaceholder}
-        onChange={(val: string) => {
-          setIsOpen(true);
-          setFilter(val);}}
-        onClick={() => !disabled && setIsOpen(true)}
+        ref={ref}
+        value={opened ? filter: isEmpty ? '' : title}
+        placeholder={title}
+        onChange={setFilter}
+        onClick={open}
         afterSlot={<ArrowDownIcon color="secondary" />}
       />
-      {isOpen && !disabled && (
-        <ul className="select-list">
-          {filterations.map((opt) => {
-            const isSelected = value.some((v) => v.key === opt.key);
+      {opened && (
+        <ul className={s.select__list}>
+          {filteredOptions.map((option) => {
             return (
-              <li className='list-item'
-                key={opt.key}
-                onMouseDown={(e) => {
-                  e.preventDefault();
-                  inputToggle(opt);
+              <li className={classNames(s.select__item, selectedKeysSet.has(option.key) && s.select__item_selected)}
+                key={option.key}
+                onMouseDown={() => {
+                 onSelect(option);
                 }}
-                style={{ color: isSelected ? 'var(--brand)' : 'black' }}
               >
-                {opt.value}
+                {option.value}
               </li>
             );
           })}
