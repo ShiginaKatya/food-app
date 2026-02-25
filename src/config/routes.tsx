@@ -1,8 +1,9 @@
-import  { Navigate, type RouteObject } from "react-router";
-import App from "../App";
-import DishesPage from "../App/pages/DishesPage";
-import DishPage from "../App/pages/DishPage";
-import {routes} from "../App/routes"
+import { Navigate, type RouteObject } from 'react-router';
+
+import App from '../App';
+import DishPage from '../App/pages/DishPage';
+import DishesPage from '../App/pages/DishesPage';
+import { routes } from '../App/routes';
 
 export const routesConfig: RouteObject[] = [
   {
@@ -10,21 +11,21 @@ export const routesConfig: RouteObject[] = [
     element: <App />,
     children: [
       {
-        path: '',
-        element: <Navigate to={routes.recipes.mask} replace />
+        index: true,
+        element: <Navigate to={routes.recipes.mask} replace />,
       },
       {
         path: routes.recipes.mask,
-        element: <DishesPage />
+        element: <DishesPage />,
       },
       {
         path: routes.recipe.mask,
-        element: <DishPage />
+        element: <DishPage />,
       },
-      // {
-      //   path: "*",
-      //   element: <Navigate to={routes.main.mask} replace />,
-      // },
-    ]
-  }
+      {
+        path: '*',
+        element: <Navigate to={routes.recipes.mask} replace />,
+      },
+    ],
+  },
 ];

@@ -1,8 +1,10 @@
-import React, {useState, useRef, useMemo, useEffect, useCallback} from 'react';
 import classNames from 'classnames';
+import React, { useState, useRef, useMemo, useEffect, useCallback } from 'react';
+
 import Input from '../Input';
-import s from './MultiDropdown.module.scss'
 import ArrowDownIcon from '../icons/ArrowDownIcon';
+
+import s from './MultiDropdown.module.scss';
 
 export type Option = {
   /** Ключ варианта, используется для отправки на бек/использования в коде */
@@ -40,69 +42,66 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({
   const [filter, setFilter] = useState('');
 
   const open = () => {
-    setIsOpen(true)
-  }
+    setIsOpen(true);
+  };
 
   useEffect(() => {
     const handlerClick = (e: MouseEvent) => {
-      if (!wrapperRef.current?.contains(e.target as HTMLElement)){
-        setIsOpen(false)
+      if (!wrapperRef.current?.contains(e.target as HTMLElement)) {
+        setIsOpen(false);
       }
-    }
+    };
 
-    window.addEventListener('click', handlerClick );
+    window.addEventListener('click', handlerClick);
     return () => {
       window.removeEventListener('click', handlerClick);
-    }
-  }, [])
+    };
+  }, []);
 
   useEffect(() => {
     if (isOpen) {
-      setFilter('')
+      setFilter('');
     }
-  }, [isOpen])
+  }, [isOpen]);
 
-  const title = useMemo(() => getTitle(value), [getTitle, value])
-  const selectName = classNames(s.select, className)
+  const title = useMemo(() => getTitle(value), [getTitle, value]);
+  const selectName = classNames(s.select, className);
   const isEmpty = value.length === 0;
 
   const filteredOptions = useMemo(() => {
     const str = filter.toLocaleLowerCase();
 
-    return options.filter((o) => o.value.toLocaleLowerCase().indexOf(str) === 0)
-  }, [filter, options])
+    return options.filter((o) => o.value.toLocaleLowerCase().indexOf(str) === 0);
+  }, [filter, options]);
 
   const selectedKeysSet = useMemo<Set<Option['key']>>(
-    () => new Set(value.map(({key}) => key)), 
+    () => new Set(value.map(({ key }) => key)),
     [value]
-  )
+  );
 
   const onSelect = useCallback(
-    (option: Option)  =>{
+    (option: Option) => {
       if (disabled) {
-        return
+        return;
       }
 
-      if (selectedKeysSet.has(option.key)){
-        onChange([...value].filter(({key}) => key !== option.key))
+      if (selectedKeysSet.has(option.key)) {
+        onChange([...value].filter(({ key }) => key !== option.key));
       } else {
         onChange([...value, option]);
       }
 
-      ref.current?.focus()
+      ref.current?.focus();
     },
     [disabled, onChange, value, selectedKeysSet]
-  )
+  );
   const opened = isOpen && !disabled;
   return (
-    <div 
-      className={selectName} 
-      ref={wrapperRef} 
-    >
+    <div className={selectName} ref={wrapperRef}>
       <Input
         disabled={disabled}
         ref={ref}
-        value={opened ? filter: isEmpty ? '' : title}
+        value={opened ? filter : isEmpty ? '' : title}
         placeholder={title}
         onChange={setFilter}
         onClick={open}
@@ -112,10 +111,14 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({
         <ul className={s.select__list}>
           {filteredOptions.map((option) => {
             return (
-              <li className={classNames(s.select__item, selectedKeysSet.has(option.key) && s.select__item_selected)}
+              <li
+                className={classNames(
+                  s.select__item,
+                  selectedKeysSet.has(option.key) && s.select__item_selected
+                )}
                 key={option.key}
                 onMouseDown={() => {
-                 onSelect(option);
+                  onSelect(option);
                 }}
               >
                 {option.value}

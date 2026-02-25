@@ -43,6 +43,18 @@
   }
 }
 
+@mixin padding-page {
+  padding: calc(2*var.$space-s) var.$padding-page;
+
+  @include dekstop{
+    padding: calc(2*var.$space-s) var.$padding-page-d;
+  }
+
+  @include mobile{
+    padding: calc(2*var.$space-s) var.$padding-page-m;
+  }
+}
+
 
 
 

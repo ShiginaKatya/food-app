@@ -1,7 +1,6 @@
-import { Outlet } from 'react-router';
-import './App.scss'
 import Header from 'components/Header';
-
+import { Outlet } from 'react-router';
+import './App.scss';
 
 function App() {
   return (
@@ -9,7 +8,7 @@ function App() {
       <Header />
       <Outlet />
     </div>
-  )
-};
+  );
+}
 
-export default App
+export default App;

@@ -1,21 +1,23 @@
 @use 'styles/variables' as var;
 
 .loader{
-  &_size-m{
-    width: 48px;
-    height: 48px;
-  }
+  &_size{
+    
+    &-m{
+      width: 48px;
+      height: 48px;
+    }
 
-  &_size_s{
-    width: 24px;
-    height: 24px;
+    &-s{
+      width: 24px;
+      height: 24px;
+    }
+    
+    &-l{
+      width: 60px;
+      height: 60px;
+    }
   }
-
-  &_size_l{
-    width: 60px;
-    height: 60px;
-  }
-
 }
 
 .btn-loader path{

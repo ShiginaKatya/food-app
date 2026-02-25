@@ -5,31 +5,31 @@
   background-color: white;
   @include flex-align;
   justify-content: space-between;
-  padding: var.$space-s 100px;
-  gap: 60px;
+  padding: var.$space-s var.$padding-page;
+  gap: calc(3 * var.$space-l);
 
   @include dekstop {
-    padding: var.$space-s 30px;
-    gap: 20px;
+    padding: var.$space-s var.$padding-page-d;
+    gap: var.$space-l;
   }
   @include mobile {
-    padding: var.$space-s 10px;
+    padding: var.$space-s var.$padding-page-d;
   }
 
-
-
-
-
   &__logo{
-    display: flex;
+    @include flex-align;
     gap: var.$space-l;
-    align-items: center;
   }
 
   &__personal{
-    display: flex;
+    @include flex-align;
     gap: var.$space-m;
+
+    &__link{
+      display: inline-flex;
+    }
   }
+
 
   @include tablet{
     flex-wrap: wrap;

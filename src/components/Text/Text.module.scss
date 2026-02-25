@@ -74,9 +74,15 @@
       font-weight: 700;
     }
   }
-  
 
-  
+  &__clamp{
+    --max-lines: 1;
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    line-clamp: var(--max-lines);
+    -webkit-line-clamp: var(--max-lines);
+  }
 
 }
 

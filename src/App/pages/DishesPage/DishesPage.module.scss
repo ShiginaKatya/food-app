@@ -28,27 +28,27 @@
   }
   &__inputs{
     display: grid;
-    gap: 20px;
+    gap: var.$space-l;
 
     @include mobile{
-    gap: 10px;
-  }
+      gap: calc(var.$space-l / 2);
+    }
   }
   &__list{
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 64px;
+    gap: calc(4 * var.$space-m);
     justify-content: space-between;
     align-items: stretch;
 
     .item__caption{
       @include flex-align;
-      gap: 4px;
+      gap: calc(var.$space-xxs / 2)
     }
 
     @include mobile{
-    gap: 16px;
-  }
+      gap: var.$space-m;
+    }
   }
 
   
@@ -56,31 +56,22 @@
 }
 
 .main__content{
-  padding: 28px 100px;
+  @include padding-page;
   display: grid;
-  gap: 48px;
+  gap: calc(2 * var.$space-xl);
 
-  @include dekstop{
-    padding: 28px 30px;
-  }
   @include mobile{
-    padding: 28px 10px;
-    gap: 24px;
+    gap: var.$space-xl;
   }
 }
-
-// .content_inputs{
-//   display: grid;
-//   gap: var(--space-l);
-// }
 
 .inputs__search{
   display: flex;
   justify-content: space-between;
-  gap: 19px;
+  gap: var.$space-l;
 
   @include mobile{
-    gap: 10px;
+    gap: calc(var.$space-l /2);
   }
   
   .search{

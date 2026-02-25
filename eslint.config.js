@@ -3,6 +3,8 @@ import import_ from 'eslint-plugin-import';
 import prettier from 'eslint-plugin-prettier';
 import react from 'eslint-plugin-react';
 import reactHooks from 'eslint-plugin-react-hooks';
+import { fixupPluginRules } from "@eslint/compat";
+import reactPlugin from "eslint-plugin-react";
 import tseslint from 'typescript-eslint';
 
 export default tseslint.config(
@@ -12,6 +14,8 @@ export default tseslint.config(
       '**/build',
       '**/public',
       '**/*.cjs',
+      '*.config.js',
+      '*.config.ts',
       '**/node_modules',
     ],
   },
@@ -32,13 +36,13 @@ export default tseslint.config(
     },
     languageOptions: {
       parserOptions: {
-        project: ['./tsconfig.json'],
+        project: ['./tsconfig.app.json'],
         tsconfigRootDir: import.meta.dirname,
       },
     },
   },
   {
-    plugins: { prettier, import: import_, react, 'react-hooks': reactHooks },
+    plugins: { prettier, import: import_, 'react': fixupPluginRules(reactPlugin), 'react-hooks': fixupPluginRules(reactHooks) },
     settings: {
       react: {
         version: 'detect',

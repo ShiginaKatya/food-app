@@ -2,26 +2,17 @@
 @use 'styles/mixins' as *;
 
 .recipe{
-  padding: 28px 100px;
+  @include padding-page;
   min-height: 100vh;
   background-image: url('assets/Pattern.png');
   background-repeat: no-repeat;
   background-position: top right;
 
-  @include dekstop {
-    padding: 28px 30px;
-  }
-
-  @include mobile {
-    padding: 28px 10px;
-  }
-
-
   &__title{
     @include flex-align;
     gap: var.$space-m;
-    padding-top: 49px;
-    padding-bottom: 37px;
+    padding-top: calc(2 * var.$space-xl);
+    padding-bottom: calc(2 * var.$space-l);
 
     .icon_flip{
       transform: rotate(90deg);
@@ -37,31 +28,29 @@
 
   &__content{
     display: grid;
-    gap: 48px;
+    gap: calc(var.$space-xl * 2);
   }
 
   &__overview{
     @include flex-align;
-    gap: 166px;
-
-    
+    justify-content: space-between;
+    width: 95%;
   }
 
   &__description{
     margin: auto;
-    padding: 36px;
+    padding: calc(2 * var.$space-m);
     @include app-border;
     background-color: #B5460F54;
 
     @include mobile{
-      padding: 15px;
+      padding: var.$space-m;
     }
   }
 
   &__needs{
     display: flex;
-    gap: 37px;
-    ;
+    gap: calc(2 * var.$space-l);
     align-items: flex-start;
 
     @include tablet{
@@ -72,15 +61,12 @@
     .needs__list{
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      column-gap: 29px;
+      column-gap: var.$space-xl;
       row-gap: var.$space-xxs;
 
       @include mobile{
-        column-gap: 10px;
-    }
-
-
-
+        column-gap: var.$space-xs;
+      }
     }
 
     .needs__item{
@@ -89,7 +75,7 @@
 
       .item__icon{
         flex-shrink: 0;
-        min-width: 24px;
+        min-width: var.$space-xl;
       }
 
     }
@@ -101,11 +87,9 @@
     width: fit-content;
   }
 
-  
-
   &__ingred{
     position: relative;
-    padding-right: 20px;
+    padding-right: var.$space-l;
     border-right: 2px solid var.$brand;
 
     &::before {
@@ -114,8 +98,8 @@
       top: -15px;                
       right: -5px;               
       
-      width: 8px;              
-      height: 8px;
+      width: var.$space-xxs;              
+      height: var.$space-xxs;
       background-color: var.$brand; 
       border-radius: 50%;     
     }
@@ -136,7 +120,7 @@
 
       .steps__item{
         display: grid;
-        gap: 10px;
+        gap: calc(var.$space-l  / 2);
       }
     }
   }
@@ -145,19 +129,15 @@
 }
 
 .overview{
-  @include dekstop {
-    gap: 60px;
-  }
-
   @include tablet{
-    gap: 30px;
     flex-direction: column;
-
+    gap: var.$space-xl;
+    width: 100%;
   }
 
 
   &__image{
-    width: 33%;
+    width: 40%;
     border-radius: var.$border-radius;
 
     @include tablet{
@@ -165,43 +145,36 @@
     }
   }
 
-  &__list{
+  &__list, .list{
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    row-gap: 50px;
-    column-gap: 100px;
+    row-gap: calc(2 * var.$space-xl);
+    column-gap: calc(4 * var.$space-xl);
     justify-content: space-between;
 
     @include dekstop{
-      column-gap: 40px;
-      row-gap: 40px;
+      column-gap: calc(2 * var.$space-l);
+      row-gap: calc(2 * var.$space-l);
     }
 
     @include tablet{
-      column-gap: 30px;
-      row-gap: 30px;
+      column-gap: var.$space-xl;
+      row-gap: var.$space-xl;
     }
 
     @include mobile{
-      column-gap: 10px;
-      row-gap: 10px;
+      column-gap: var.$space-xs;
+      row-gap: var.$space-xs;
     }
 
-    .list__item{
+    &__item{
       display: grid;
       justify-content: center;
       align-items: center;
       text-align: center;
       gap: var.$space-xxs;
-
-      @include tablet{
-        gap: 6px;
-      }
     }
-  }
-
-  
-  
+  } 
 }
 
 .text_bolder{
