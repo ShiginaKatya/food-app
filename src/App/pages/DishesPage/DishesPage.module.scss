@@ -1,0 +1,89 @@
+@use 'styles/variables' as var;
+@use 'styles/mixins' as *;
+
+.decor{
+  text-decoration: underline;
+}
+.icon-white path{
+  fill: white;
+}
+
+.banner_img{
+  display: block;
+  width: 100%;
+  object-fit: contain;
+  object-position: center;
+  margin-bottom: var.$space-xxs;
+
+  @include tablet{
+    object-fit: cover;
+    height: 360px;
+    max-width: var.$breakpoint-md;
+  }
+}
+
+.content{
+  &__text{
+    text-align: center;
+  }
+  &__inputs{
+    display: grid;
+    gap: var.$space-l;
+
+    @include mobile{
+      gap: calc(var.$space-l / 2);
+    }
+  }
+  &__list{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: calc(4 * var.$space-m);
+    justify-content: space-between;
+    align-items: stretch;
+
+    .item__caption{
+      @include flex-align;
+      gap: calc(var.$space-xxs / 2)
+    }
+
+    @include mobile{
+      gap: var.$space-m;
+    }
+  }
+
+  
+
+}
+
+.main__content{
+  @include padding-page;
+  display: grid;
+  gap: calc(2 * var.$space-xl);
+
+  @include mobile{
+    gap: var.$space-xl;
+  }
+}
+
+.inputs__search{
+  display: flex;
+  justify-content: space-between;
+  gap: var.$space-l;
+
+  @include mobile{
+    gap: calc(var.$space-l /2);
+  }
+  
+  .search{
+    flex-grow: 1;
+  }
+}
+
+.inputs__drop{
+  display: flex;
+  justify-content: flex-end;
+  
+  .drop{
+    width: 300px;
+  }
+}
