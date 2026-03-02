@@ -1,77 +1,29 @@
-import axios from 'axios';
+import { useRecipeQuery } from 'api/queries';
 import classNames from 'classnames';
+import Loader from 'components/Loader';
 import Text from 'components/Text';
 import ArrowDownIcon from 'components/icons/ArrowDownIcon';
 import EquipIcon from 'components/icons/EquipIcon';
 import IngredIcon from 'components/icons/IngredIcon';
 import parse from 'html-react-parser';
-import qs from 'qs';
-import { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import { Link } from 'react-router';
 
 import s from './DishPage.module.scss';
 
-const BASE_URL = 'https://front-school-strapi.ktsdev.ru/api/recipes';
-
-type RecipeImage = {
-  id: number;
-  url: string;
-  name: string;
-};
-
-type Ingradients = {
-  id: number;
-  name: string;
-};
-
-type Directions = {
-  id: number;
-  description: string;
-};
-
-type Recipe = {
-  id: number;
-  documentId: number;
-  name: string;
-  summary: string;
-  preparationTime: number;
-  cookingTime: number;
-  totalTime: number;
-  likes: number;
-  servings: number;
-  rating: number;
-  ingradients: Ingradients[];
-  equipments: Ingradients[];
-  directions: Directions[];
-  images: RecipeImage[];
-};
-
-type Response = {
-  data: Recipe;
-};
-
 const DishPage = () => {
-  const [recipe, setRecipe] = useState<Recipe>();
-  const { id } = useParams();
-  useEffect(() => {
-    const getRecipe = async () => {
-      const query = qs.stringify(
-        {
-          populate: ['ingradients', 'equipments', 'directions.image', 'images', 'category'],
-        },
-        { encodeValuesOnly: true }
-      );
-      try {
-        const response = await axios.get<Response>(`${BASE_URL}/${id}?${query}`);
-        setRecipe(response.data.data);
-      } catch (error) {
-        // eslint-disable-next-line no-console
-        console.error('Error', error);
-      }
-    };
-    getRecipe();
-  }, [id]);
+  const { id } = useParams<{ id: string }>();
+  const { data: recipe, isLoading, isError, error } = useRecipeQuery(id);
+  if (isLoading) {
+    return (
+      <div className={s.content__loader}>
+        <Loader size="m" />
+      </div>
+    );
+  }
+  if (isError) {
+    return <div>Error: {error.message}</div>;
+  }
   return (
     <main className={s.recipe}>
       <div className={s.recipe__title}>

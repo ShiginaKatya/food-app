@@ -48,9 +48,9 @@ const Header = () => {
         </ul>
       </nav>
       <div className={s.header__personal}>
-        <a href="" className={s.header__personal__link}>
+        <Link to="/favorites" className={s.header__personal__link}>
           <FavoriteIcon color="accent" />
-        </a>
+        </Link>
         <a href="" className={s.header__personal__link}>
           <PersonIcon color="accent" />
         </a>

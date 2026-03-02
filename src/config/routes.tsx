@@ -3,6 +3,7 @@ import { Navigate, type RouteObject } from 'react-router';
 import App from '../App';
 import DishPage from '../App/pages/DishPage';
 import DishesPage from '../App/pages/DishesPage';
+import FavoritesPage from '../App/pages/FavoritesPage';
 import { routes } from '../App/routes';
 
 export const routesConfig: RouteObject[] = [
@@ -21,6 +22,10 @@ export const routesConfig: RouteObject[] = [
       {
         path: routes.recipe.mask,
         element: <DishPage />,
+      },
+      {
+        path: routes.favorites.mask,
+        element: <FavoritesPage />,
       },
       {
         path: '*',

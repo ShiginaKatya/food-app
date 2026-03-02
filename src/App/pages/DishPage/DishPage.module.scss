@@ -1,6 +1,14 @@
 @use 'styles/variables' as var;
 @use 'styles/mixins' as *;
 
+.content__loader{
+  width: 100%;
+  height: 100%;
+  @include flex-center;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
 .recipe{
   @include padding-page;
   min-height: 100vh;
