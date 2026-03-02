@@ -7,6 +7,10 @@ export const routes = {
     mask: '/recipes',
     create: () => '/recipes',
   },
+  favorites: {
+    mask: '/favorites',
+    create: () => '/favorites',
+  },
   recipe: {
     mask: '/recipes/:id',
     create: (id: string) => `/recipes/${id}`,

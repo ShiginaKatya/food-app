@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React from 'react';
+import * as React from 'react';
 
 import Text from '../Text';
 
@@ -36,7 +36,7 @@ const Card: React.FC<CardProps> = ({
 }) => {
   return (
     <div className={classNames(s.card, className)} onClick={onClick}>
-      <img className={s.card__image} src={image} alt="image" />
+      <img loading="lazy" className={s.card__image} src={image} alt="image" />
       <ul className={s.card__content}>
         <li className={s.card__texts}>
           {captionSlot && (
@@ -64,4 +64,4 @@ const Card: React.FC<CardProps> = ({
   );
 };
 
-export default Card;
+export default React.memo(Card);

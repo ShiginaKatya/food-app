@@ -30,6 +30,7 @@
       "assets": ["assets/*"],
       "config": ["config/*"],
       "styles": ["styles/*"],
+      "api": ["api/*"],
       "utils": ["utils/*"]
     }
 
